@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Winner } from '../components/Board'
 import styled from 'styled-components'
 
@@ -64,14 +64,27 @@ align-items: center;
 }
 
 `
-const local :{} | any = localStorage.getItem('wins')
-const localWins = JSON.parse(local)
+
 
 
 
 const ResetScreen: FC<ResetScreenProps> = ({onReset, winner, player1, player2}) => {
+    const [localData, setLocalData] = useState([
+        {
+          player: "x",
+          num: 0,
+          cell: 999999,
+        },
+        {
+          player: "o",
+          num: 0,
+          cell: 999999,
+        },
+      ])
     useEffect(() => {
         localStorage.setItem('cell', '')
+        const local :{} | any = localStorage.getItem('wins')
+        setLocalData( JSON.parse(local) )
     }, []);
     return (
         <StyledResetScreenContainer>
@@ -83,7 +96,7 @@ const ResetScreen: FC<ResetScreenProps> = ({onReset, winner, player1, player2}) 
             <p>Nyert meccs</p>
             </div>
             <div className='data' >
-            {localWins.filter((n: { num: number }) => n.num !== 0).sort((a: any,b: any) => b.num - a.num ).map((i: any) => {
+            {localData.filter((n: { num: number }) => n.num !== 0).sort((a: any,b: any) => b.num - a.num ).map((i: any) => {
                return (
                 <div>
                 <p className='player' >{i.player}</p>
@@ -98,7 +111,7 @@ const ResetScreen: FC<ResetScreenProps> = ({onReset, winner, player1, player2}) 
             <p>Lépesek száma</p>
             </div>
             <div className='data' >
-            {localWins.filter((n: { cell: number }) => n.cell !== 999999).sort((a: any,b: any) => a.cell - b.cell ).map((i: any) => {
+            {localData.filter((n: { cell: number }) => n.cell !== 999999).sort((a: any,b: any) => a.cell - b.cell ).map((i: any) => {
                return (
                 <div>
                 <p className='player' >{i.player}</p>

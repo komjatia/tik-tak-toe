@@ -45,13 +45,15 @@ const Board: FC<BoardProps> = ({ onGameEnd, boardSize, winningLines, gridLayout,
   const [localCell, setLocalCell] = useLocalStorage('cell', cells)
   const [wins, setWins] = useLocalStorage('wins', [
     {
-     player: 'x',
+     player: player2,
      num: 0,
+     win: 'x',
      cell: 999999
     },
     {
-      player: 'o',
+      player: player1,
       num: 0,
+      win: 'o',
       cell: 999999
      },
     
@@ -90,39 +92,41 @@ const Board: FC<BoardProps> = ({ onGameEnd, boardSize, winningLines, gridLayout,
     setLocalCell(cells)
   }
   }, [cells]);
+
+
   
   useEffect(() => {
-    const winArr = [...wins]
-    console.log(localCell.filter(x => x==='x').length)
+   const winArr = [...wins]
+    console.log(winArr.some((p, w) => p.player === player2 && p.win === 'x'))
     if(winningCondition === 'x'){
-      winArr.filter(player => {
-        if(player.player === player2){
-         player.num++
-         player.cell = localCell.filter(x => x==='x').length < player.cell ? localCell.filter(x => x==='x').length : player.cell
-        }else if(player.player !== player1){
-          winArr.push({
-            player: player2,
-            num: player.num++,
-            cell: localCell.filter(x => x==='x').length
-          })
-        }
-      })
-    }else if(winningCondition === 'o'){
-      winArr.filter(player => {
-        if(player.player === player1){
-          player.num++
-          player.cell = localCell.filter(x => x==='o').length < player.cell ? localCell.filter(x => x==='o').length : player.cell
-        }else if(player.player !== player2){
-          winArr.push({
-            player: player1,
-            num: 1,
-            cell: localCell.filter(x => x==='o').length
-          })
-        }
+      if(winArr.some((p, w) => p.player === player2 && p.win === 'x')){
+      const arr =  winArr.filter(player => player.player === player2 && player.win === 'x' )[0]
+     arr.num++
+     arr.cell = localCell.filter(x => x==='x').length < arr.cell ? localCell.filter(x => x==='x').length : arr.cell
+    }else{
+      winArr.push({
+        player: player2,
+        num: 1,
+        win: 'x',
+        cell: localCell.filter(x => x==='x').length
       })
     }
+    }else if(winningCondition === 'o'){
+      if(winArr.some((p, w) => p.player === player1 && p.win === 'o')){
+        const arr =  winArr.filter(player => player.player === player1 && player.win === 'o' )[0]
+        arr.num++
+        arr.cell = localCell.filter(x => x==='o').length < arr.cell ? localCell.filter(x => x==='o').length : arr.cell
+    }else{
+      winArr.push({
+        player: player1,
+        num: 1,
+        win: 'o',
+        cell: localCell.filter(x => x==='o').length
+      })
+    }
+    }
     setWins(winArr)
-  }, [winningCondition, cells]);
+  }, [winningCondition]);
   return (
    <StyledBoardContainer>
    <p>Következő: {current === 'x' ? player2 : current === 'o' ? player1 : null }</p>

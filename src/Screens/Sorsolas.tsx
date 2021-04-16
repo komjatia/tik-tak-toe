@@ -1,7 +1,6 @@
 
 import React, { FC, useEffect, useState} from 'react'
 import {motion} from 'framer-motion'
-import useLocalStorage from '../components/useLocalStorage'
 
 
 const animations = {
@@ -89,7 +88,7 @@ const SorsolasScreen: FC<SorsolasScreenProps> = ({player1State, player2State, nu
                 console.log((num % 2) + 'play2')
               }
         },4000)
-    }, []);
+    }, [num]);
     return (
         <>
         <motion.h1 initial='hiddenP2' animate={animation ? animation === 'player1' ? 'set' : 'getOut' : 'showP2'} 

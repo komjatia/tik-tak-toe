@@ -82,19 +82,15 @@ const StyledBoardContainer = styled.div`
   align-items: center;
 `;
 
-type GameState = "start" | 'sorsolas' | "game" | "reset";
+
 
 
 function App() {
   const [winner, setWinner] = useState<Winner>();
-  const [gameState, setGameState] = useState<GameState>("start");
   const [boardSize, setBoardSize] = useLocalStorage("boardSize", '3x3');
   const [rnum, setrnum] = useLocalStorage('num', 2)
   const [player1, setPlayer1] = useLocalStorage('o', 'o')
-  const [allPlayer, setAllPlayer] = useLocalStorage('o', 'a')
   const [player2, setPlayer2] = useLocalStorage('x', 'x')
-  const [player1State, setPlayer1State] = useState('o')
-  const [player2State, setPlayer2State] = useState('x')
   const [localGameState, setLocalGameState] = useLocalStorage('gameState', 'start')
   const [checkBoardSize, setCheckBoardSize] = useLocalStorage('bs',
    {
@@ -110,10 +106,8 @@ function App() {
   const onStart = () => {
     const num:number = Math.round(Math.random() * 100)
     setrnum(num)
-    setGameState("sorsolas");
     setLocalGameState('sorsolas')
     setTimeout(()=>{
-      setGameState("game");
     setLocalGameState('game')
     },5000)
     
@@ -124,39 +118,20 @@ function App() {
   const onEnd = (winner: Winner) => {
   setTimeout(() => {
     setLocalGameState('reset')
-    setGameState("reset");
   },500)
-    const local: any = localStorage.getItem('winner')
     setWinner(winner);
-    switch (winner) {
-      case 'x':
-        localStorage.setItem('winner', JSON.stringify(player2 + ',' + JSON.parse(local)))
-        break;
-        case 'o':
-        localStorage.setItem('winner', JSON.stringify(player1 + ','  + JSON.parse(local)))
-        break;
-        case 'Dontelen':
-          localStorage.setItem('winner', JSON.stringify('Dontetlen' + ','  + JSON.parse(local)))
-          break;
-    }
-   
-    
   };
 
   const onReset = () => {
     setLocalGameState('start')
-    setGameState("start");
     setWinner(undefined);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const allLocalPlayer = allPlayer
     if(e.target.name === 'o'){
       setPlayer1(e.target.value)
-      setPlayer1State(e.target.value)
     }else{
       setPlayer2(e.target.value)
-      setPlayer2State(e.target.value)
     }
   }
   const onSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -213,9 +188,6 @@ function App() {
         break;
     }
   };
-const setnum = () => {
-  
-}
   return (
     <>
       <GlobalStyle />
