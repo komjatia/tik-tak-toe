@@ -1,4 +1,4 @@
-import React, { FC} from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -36,12 +36,16 @@ type StartScreenProp = {
   onSizeChange(e: React.ChangeEvent<HTMLInputElement>): void;
   handleChange(e: React.ChangeEvent<HTMLInputElement>): void;
   player1: string;
-  player2: string
+  player2: string;
 };
 
-
-const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange, player1, player2 }) => {
-
+const StartScreen: FC<StartScreenProp> = ({
+  onStart,
+  onSizeChange,
+  handleChange,
+  player1,
+  player2,
+}) => {
   return (
     <StyledStartScreen>
       <StyledFormContainer>
@@ -84,9 +88,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
             onChange={onSizeChange}
             required
           />
-          <label  htmlFor="size">
-            3x3
-          </label>
+          <label htmlFor="size">3x3</label>
         </div>
         <div>
           <input
@@ -96,9 +98,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
             onChange={onSizeChange}
             required
           />
-          <label  htmlFor="size">
-            4x4
-          </label>
+          <label htmlFor="size">4x4</label>
         </div>
         <div>
           <input
@@ -108,9 +108,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
             onChange={onSizeChange}
             required
           />
-          <label  htmlFor="size">
-            5x5
-          </label>
+          <label htmlFor="size">5x5</label>
         </div>
         <div>
           <input
@@ -120,9 +118,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
             onChange={onSizeChange}
             required
           />
-          <label  htmlFor="size">
-            6x6
-          </label>
+          <label htmlFor="size">6x6</label>
         </div>
         <div>
           <input
@@ -132,9 +128,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
             onChange={onSizeChange}
             required
           />
-          <label  htmlFor="size">
-            7x7
-          </label>
+          <label htmlFor="size">7x7</label>
         </div>
         <div>
           <input
@@ -144,9 +138,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
             onChange={onSizeChange}
             required
           />
-          <label  htmlFor="size">
-            8x8
-          </label>
+          <label htmlFor="size">8x8</label>
         </div>
         <div>
           <input
@@ -156,9 +148,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
             onChange={onSizeChange}
             required
           />
-          <label  htmlFor="size">
-            9x9
-          </label>
+          <label htmlFor="size">9x9</label>
         </div>
       </StyledButtonContainer>
       <button onClick={onStart}>Játék</button>

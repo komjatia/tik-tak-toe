@@ -12,8 +12,15 @@ import { motion } from "framer-motion";
 import useLocalStorage from "./components/useLocalStorage";
 import SorsolasScreen from "./Screens/Sorsolas";
 
-
-import {winL3, winL4, winL5, winL6, winL7, winL8, winL9} from './components/winningLines'
+import {
+  winL3,
+  winL4,
+  winL5,
+  winL6,
+  winL7,
+  winL8,
+  winL9,
+} from "./components/winningLines";
 
 const animations = {
   hidden: {
@@ -35,8 +42,8 @@ const animations = {
     scale: 1,
     width: "500px",
     height: "500px",
-    background: 'transparent',
-    border: 'none',
+    background: "transparent",
+    border: "none",
     transition: {
       type: "spring",
       duration: 0.8,
@@ -82,58 +89,50 @@ const StyledBoardContainer = styled.div`
   align-items: center;
 `;
 
-
-
-
 function App() {
   const [winner, setWinner] = useState<Winner>();
-  const [boardSize, setBoardSize] = useLocalStorage("boardSize", '3x3');
-  const [rnum, setrnum] = useLocalStorage('num', 2)
-  const [player1, setPlayer1] = useLocalStorage('o', 'o')
-  const [player2, setPlayer2] = useLocalStorage('x', 'x')
-  const [localGameState, setLocalGameState] = useLocalStorage('gameState', 'start')
-  const [checkBoardSize, setCheckBoardSize] = useLocalStorage('bs',
-   {
-     numberOfCells: 9,
-     gridLayout: "1fr 1fr 1fr",
-     winningLines : winL3
-   }
+  const [boardSize, setBoardSize] = useLocalStorage("boardSize", "3x3");
+  const [rnum, setrnum] = useLocalStorage("num", 2);
+  const [player1, setPlayer1] = useLocalStorage("o", "o");
+  const [player2, setPlayer2] = useLocalStorage("x", "x");
+  const [localGameState, setLocalGameState] = useLocalStorage(
+    "gameState",
+    "start"
   );
-
-
-
+  const [checkBoardSize, setCheckBoardSize] = useLocalStorage("bs", {
+    numberOfCells: 9,
+    gridLayout: "1fr 1fr 1fr",
+    winningLines: winL3,
+  });
 
   const onStart = () => {
-    const num:number = Math.round(Math.random() * 100)
-    setrnum(num)
-    setLocalGameState('sorsolas')
-    setTimeout(()=>{
-    setLocalGameState('game')
-    },5000)
-    
+    const num: number = Math.round(Math.random() * 100);
+    setrnum(num);
+    setLocalGameState("sorsolas");
+    setTimeout(() => {
+      setLocalGameState("game");
+    }, 5000);
   };
 
-
-
   const onEnd = (winner: Winner) => {
-  setTimeout(() => {
-    setLocalGameState('reset')
-  },500)
+    setTimeout(() => {
+      setLocalGameState("reset");
+    }, 500);
     setWinner(winner);
   };
 
   const onReset = () => {
-    setLocalGameState('start')
+    setLocalGameState("start");
     setWinner(undefined);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.name === 'o'){
-      setPlayer1(e.target.value)
-    }else{
-      setPlayer2(e.target.value)
+    if (e.target.name === "o") {
+      setPlayer1(e.target.value);
+    } else {
+      setPlayer2(e.target.value);
     }
-  }
+  };
   const onSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoardSize(e.target.value);
     switch (e.target.value) {
@@ -141,49 +140,49 @@ function App() {
         setCheckBoardSize({
           numberOfCells: 9,
           gridLayout: "1fr 1fr 1fr",
-          winningLines : winL3
+          winningLines: winL3,
         });
         break;
       case "4x4":
         setCheckBoardSize({
           numberOfCells: 16,
           gridLayout: "1fr 1fr 1fr 1fr",
-          winningLines : winL4
+          winningLines: winL4,
         });
         break;
       case "5x5":
         setCheckBoardSize({
           numberOfCells: 25,
           gridLayout: "1fr 1fr 1fr 1fr 1fr",
-          winningLines : winL5
+          winningLines: winL5,
         });
         break;
       case "6x6":
         setCheckBoardSize({
           numberOfCells: 36,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr",
-          winningLines : winL6
+          winningLines: winL6,
         });
         break;
       case "7x7":
         setCheckBoardSize({
           numberOfCells: 49,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-          winningLines : winL7
+          winningLines: winL7,
         });
         break;
       case "8x8":
         setCheckBoardSize({
           numberOfCells: 64,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ",
-          winningLines : winL8
+          winningLines: winL8,
         });
         break;
       case "9x9":
         setCheckBoardSize({
           numberOfCells: 91,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-          winningLines : winL9
+          winningLines: winL9,
         });
         break;
     }
@@ -200,9 +199,21 @@ function App() {
           {
             {
               start: (
-                <StartScreen onStart={onStart} onSizeChange={onSizeChange} handleChange={handleChange} player1={player1} player2={player2}/>
+                <StartScreen
+                  onStart={onStart}
+                  onSizeChange={onSizeChange}
+                  handleChange={handleChange}
+                  player1={player1}
+                  player2={player2}
+                />
               ),
-              sorsolas: <SorsolasScreen player1State={player1} player2State={player2} num={rnum} />,
+              sorsolas: (
+                <SorsolasScreen
+                  player1State={player1}
+                  player2State={player2}
+                  num={rnum}
+                />
+              ),
               game: (
                 <Board
                   onGameEnd={onEnd}
@@ -210,11 +221,19 @@ function App() {
                   numberOfCells={checkBoardSize.numberOfCells}
                   gridLayout={checkBoardSize.gridLayout}
                   winningLines={checkBoardSize.winningLines}
-                  player1={player1} player2={player2}
+                  player1={player1}
+                  player2={player2}
                   num={rnum}
                 />
               ),
-              reset: <ResetScreen winner={winner} onReset={onReset} player1={player1} player2={player2}/>,
+              reset: (
+                <ResetScreen
+                  winner={winner}
+                  onReset={onReset}
+                  player1={player1}
+                  player2={player2}
+                />
+              ),
             }[localGameState]
           }
         </BoardContainer>

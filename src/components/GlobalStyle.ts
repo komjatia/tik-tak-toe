@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -14,7 +14,6 @@ button{
     background: none;
     cursor: pointer;
 }
-`
+`;
 
-
-export default GlobalStyle
+export default GlobalStyle;
