@@ -9,9 +9,11 @@ import Board, { Winner } from "./components/Board";
 import StartScreen from "./Screens/StartScreeen";
 import ResetScreen from "./Screens/ResetScreen";
 import { motion } from "framer-motion";
-import Header from "./components/Header";
 import useLocalStorage from "./components/useLocalStorage";
 import SorsolasScreen from "./Screens/Sorsolas";
+
+
+import {winL3, winL4, winL5, winL6, winL7, winL8, winL9} from './components/winningLines'
 
 const animations = {
   hidden: {
@@ -43,8 +45,8 @@ const animations = {
   game: {
     opacity: 1,
     scale: 1,
-    width: "500px",
-    height: "500px",
+    width: "600px",
+    height: "600px",
     transition: {
       type: "spring",
       duration: 0.8,
@@ -53,8 +55,8 @@ const animations = {
   reset: {
     opacity: 1,
     scale: 1,
-    width: "300px",
-    height: "300px",
+    width: "600px",
+    height: "600px",
     transition: {
       type: "spring",
       duration: 0.8,
@@ -98,19 +100,7 @@ function App() {
    {
      numberOfCells: 9,
      gridLayout: "1fr 1fr 1fr",
-     winningLines : [
-      // horizontal
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      // vertical
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      // across
-      [0, 4, 8],
-      [2, 4, 6],
-    ]
+     winningLines : winL3
    }
   );
 
@@ -125,15 +115,17 @@ function App() {
     setTimeout(()=>{
       setGameState("game");
     setLocalGameState('game')
-    },4500)
+    },5000)
     
   };
 
 
 
   const onEnd = (winner: Winner) => {
+  setTimeout(() => {
     setLocalGameState('reset')
     setGameState("reset");
+  },500)
     const local: any = localStorage.getItem('winner')
     setWinner(winner);
     switch (winner) {
@@ -174,133 +166,49 @@ function App() {
         setCheckBoardSize({
           numberOfCells: 9,
           gridLayout: "1fr 1fr 1fr",
-          winningLines : [
-           // horizontal
-           [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8],
-           // vertical
-           [0, 3, 6],
-           [1, 4, 7],
-           [2, 5, 8],
-           // across
-           [0, 4, 8],
-           [2, 4, 6],
-         ]
+          winningLines : winL3
         });
         break;
       case "4x4":
         setCheckBoardSize({
           numberOfCells: 16,
           gridLayout: "1fr 1fr 1fr 1fr",
-          winningLines : [
-           // horizontal
-           [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8],
-           // vertical
-           [0, 3, 6],
-           [1, 4, 7],
-           [2, 5, 8],
-           // across
-           [0, 4, 8],
-           [2, 4, 6],
-         ]
+          winningLines : winL4
         });
         break;
       case "5x5":
         setCheckBoardSize({
           numberOfCells: 25,
           gridLayout: "1fr 1fr 1fr 1fr 1fr",
-          winningLines : [
-           // horizontal
-           [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8],
-           // vertical
-           [0, 3, 6],
-           [1, 4, 7],
-           [2, 5, 8],
-           // across
-           [0, 4, 8],
-           [2, 4, 6],
-         ]
+          winningLines : winL5
         });
         break;
       case "6x6":
         setCheckBoardSize({
           numberOfCells: 36,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr",
-          winningLines : [
-           // horizontal
-           [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8],
-           // vertical
-           [0, 3, 6],
-           [1, 4, 7],
-           [2, 5, 8],
-           // across
-           [0, 4, 8],
-           [2, 4, 6],
-         ]
+          winningLines : winL6
         });
         break;
       case "7x7":
         setCheckBoardSize({
           numberOfCells: 49,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-          winningLines : [
-           // horizontal
-           [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8],
-           // vertical
-           [0, 3, 6],
-           [1, 4, 7],
-           [2, 5, 8],
-           // across
-           [0, 4, 8],
-           [2, 4, 6],
-         ]
+          winningLines : winL7
         });
         break;
       case "8x8":
         setCheckBoardSize({
           numberOfCells: 64,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ",
-          winningLines : [
-           // horizontal
-           [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8],
-           // vertical
-           [0, 3, 6],
-           [1, 4, 7],
-           [2, 5, 8],
-           // across
-           [0, 4, 8],
-           [2, 4, 6],
-         ]
+          winningLines : winL8
         });
         break;
       case "9x9":
         setCheckBoardSize({
           numberOfCells: 91,
           gridLayout: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-          winningLines : [
-           // horizontal
-           [0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8],
-           // vertical
-           [0, 3, 6],
-           [1, 4, 7],
-           [2, 5, 8],
-           // across
-           [0, 4, 8],
-           [2, 4, 6],
-         ]
+          winningLines : winL9
         });
         break;
     }
@@ -311,7 +219,6 @@ const setnum = () => {
   return (
     <>
       <GlobalStyle />
-      <Header />
       <StyledBoardContainer>
         <BoardContainer
           initial="hidden"

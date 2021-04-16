@@ -47,8 +47,13 @@ const Board: FC<BoardProps> = ({ onGameEnd, boardSize, winningLines, gridLayout,
     {
      player: 'x',
      num: 0,
-     cell: localCell
+     cell: 999999
     },
+    {
+      player: 'o',
+      num: 0,
+      cell: 999999
+     },
     
   ])
 
@@ -88,39 +93,39 @@ const Board: FC<BoardProps> = ({ onGameEnd, boardSize, winningLines, gridLayout,
   
   useEffect(() => {
     const winArr = [...wins]
+    console.log(localCell.filter(x => x==='x').length)
     if(winningCondition === 'x'){
       winArr.filter(player => {
         if(player.player === player2){
          player.num++
-         player.cell = localCell
+         player.cell = localCell.filter(x => x==='x').length < player.cell ? localCell.filter(x => x==='x').length : player.cell
         }else if(player.player !== player1){
           winArr.push({
             player: player2,
             num: player.num++,
-            cell: localCell
+            cell: localCell.filter(x => x==='x').length
           })
         }
-        setWins(winArr)
       })
     }else if(winningCondition === 'o'){
       winArr.filter(player => {
         if(player.player === player1){
           player.num++
+          player.cell = localCell.filter(x => x==='o').length < player.cell ? localCell.filter(x => x==='o').length : player.cell
         }else if(player.player !== player2){
           winArr.push({
             player: player1,
             num: 1,
-            cell: localCell
+            cell: localCell.filter(x => x==='o').length
           })
         }
-        setWins(winArr)
       })
     }
-   
-  }, [winningCondition]);
+    setWins(winArr)
+  }, [winningCondition, cells]);
   return (
    <StyledBoardContainer>
-   <p>Kovetkezo: {current === 'x' ? player2 : current === 'o' ? player1 : null }</p>
+   <p>Következő: {current === 'x' ? player2 : current === 'o' ? player1 : null }</p>
     <StyledBoard>
       {localCell ? localCell.map((cell, i) => (
         <Cell key={i} value={cell} toggle={toggleCell} index={i} />

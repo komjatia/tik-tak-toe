@@ -6,23 +6,34 @@ import useLocalStorage from '../components/useLocalStorage'
 
 const animations = {
     hidden: {
+      y: 160,
+      x: -10,
+      opacity: 0,
+      scale: 0.9,
+    },
+    hiddenP2: {
+      y:-160,
+      x: -0,
       opacity: 0,
       scale: 0.9,
     },
     show: {
       opacity: 1,
       scale: 1,
+      y: 160,
+      x: -5,
      color: 'white',
       transition: {
         yoyo: 10,
         type: "spring",
-        duration: 0.4,
-        delay: .1
+        duration: 0.5,
       },
     },
     showP2: {
         opacity: 1,
         scale: 1,
+        y:-160,
+        x: -10,
        color: 'white',
         transition: {
           yoyo: 10,
@@ -31,6 +42,7 @@ const animations = {
         },
       },
     set: {
+      y: 0,
         opacity: 1,
         scale: 1.5,
        color: 'white',
@@ -80,7 +92,7 @@ const SorsolasScreen: FC<SorsolasScreenProps> = ({player1State, player2State, nu
     }, []);
     return (
         <>
-        <motion.h1 initial='hidden' animate={animation ? animation === 'player1' ? 'set' : 'getOut' : 'showP2'} 
+        <motion.h1 initial='hiddenP2' animate={animation ? animation === 'player1' ? 'set' : 'getOut' : 'showP2'} 
         variants={animations}>{player1State}</motion.h1>
         <motion.h1 initial='hidden' animate={animation ? animation === 'player2' ? 'set' : 'getOut' : 'show'} 
         variants={animations}>{player2State}</motion.h1>

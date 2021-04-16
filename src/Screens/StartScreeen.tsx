@@ -74,7 +74,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
           }}
         />
       </StyledFormContainer>
-      <h3>Palya merete:</h3>
+      <h3>Pálya mérete:</h3>
       <StyledButtonContainer>
         <div>
           <input
@@ -161,7 +161,7 @@ const StartScreen: FC<StartScreenProp> = ({ onStart, onSizeChange, handleChange,
           </label>
         </div>
       </StyledButtonContainer>
-      <button onClick={onStart}>Kezd</button>
+      <button onClick={onStart}>Játék</button>
     </StyledStartScreen>
   );
 };
