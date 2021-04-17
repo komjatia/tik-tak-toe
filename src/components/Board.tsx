@@ -88,7 +88,6 @@ const Board: FC<BoardProps> = ({
   const winningCondition = winningLogic ? cells[winningLogic[0]] : undefined;
 
   const step: number = boardSize === '3x3' ? 9 : boardSize === '4x4' ? 16 : boardSize === '5x5' ? 25 : boardSize === '6x6' ? 36 : boardSize === '7x7' ? 49 : boardSize === '8x8' ? 61 : boardSize === '9x9' ? 91 : 9 
-  console.log(step)
   const tie = cells.filter((c) => c).length === step ;
 
   useEffect(() => {
